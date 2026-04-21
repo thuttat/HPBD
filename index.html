@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <title>Happy Birthday Sister - 22/04</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600&display=swap" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div id="overlay">
+        <div class="overlay-content">
+            <h2 class="timer-label">COUNTDOWN TO 22/04</h2>
+            <div id="countdown">00h : 00m : 00s</div>
+            <button id="start-btn" style="display: none;">MỞ QUÀ NGAY</button>
+        </div>
+    </div>
+
+    <audio id="bgm" loop>
+      <source src="asset/12.mp3" type="audio/mp3" />
+    </audio>
+
+    <div id="main-content" style="display: none;">
+        <div class="container2">
+          <div class="content">
+            <canvas id="universe"></canvas>
+          </div>
+        </div>
+
+        <div class="title">
+          <div class="top-text">
+            <h3 class="STARDUST1">2026</h3>
+            <h1 class="STARDUST2">HAPPY BIRTHDAY</h1>
+          </div>
+
+          <div class="photo-ring-container">
+            <div class="polaroid-ring">
+              <div class="polaroid-item"><img src="asset/1.jpg"><p>My Sister</p></div>
+              <div class="polaroid-item"><img src="asset/2.jpg"><p>Memories</p></div>
+              <div class="polaroid-item"><img src="asset/3.jpg"><p>Beautiful</p></div>
+              <div class="polaroid-item"><img src="asset/4.jpg"><p>Happy Day</p></div>
+              <div class="polaroid-item"><img src="asset/5.jpg"><p>Best Wishes</p></div>
+              <div class="polaroid-item"><img src="asset/6.jpg"><p>Smile</p></div>
+              <div class="polaroid-item"><img src="asset/7.jpg"><p>Love You</p></div>
+              <div class="polaroid-item"><img src="asset/8.jpg"><p>22.04.2026</p></div>
+            </div>
+          </div>
+          
+          <canvas id="pinkboard"></canvas>
+
+          <h3 class="STARDUST3">22 <strong>❤</strong> 04</h3>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/particle.js"></script>
+    <script src="js/universe.js"></script>
+
+    <script>
+      const targetDate = new Date('April 22, 2026 00:00:00').getTime();
+      const startBtn = document.getElementById('start-btn');
+
+      const timer = setInterval(function() {
+        const now = new Date().getTime();
+        const diff = targetDate - now;
+
+        if (diff <= 0) {
+          clearInterval(timer);
+          document.getElementById('countdown').innerHTML = "READY!";
+          startBtn.style.display = "inline-block"; 
+        } else {
+
+          startBtn.style.display = "none";
+          
+          const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          const s = Math.floor((diff % (1000 * 60)) / 1000);
+          
+          document.getElementById('countdown').innerHTML = 
+            (h < 10 ? "0"+h : h) + "h : " + (m < 10 ? "0"+m : m) + "m : " + (s < 10 ? "0"+s : s) + "s";
+        }
+      }, 1000);
+
+
+      startBtn.addEventListener('click', function() {
+        document.getElementById('bgm').play();
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('main-content').style.display = 'block';
+        window.dispatchEvent(new Event('resize')); 
+      });
+    </script>
+  </body>
+</html>
